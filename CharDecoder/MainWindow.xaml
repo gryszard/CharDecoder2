@@ -13,7 +13,8 @@
                 BorderBrush="#FF000000">
             <Image x:Name="image" Margin="3,3,3,3" />
         </Border>
-        <Button Content="Ask" HorizontalAlignment="Left" Margin="324,339,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Reset" HorizontalAlignment="Left" Margin="427,339,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Ask" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Click="ButtonAsk_Click"/>
+        <Button Content="Reset" HorizontalAlignment="Left" Margin="467,339,0,0" VerticalAlignment="Top" Click="ButtonReset_Click"/>
+        <Button Content="Train" HorizontalAlignment="Left" Margin="300,339,0,0" VerticalAlignment="Top" Click="ButtonTrain_Click"/>
     </Grid>
 </Window>

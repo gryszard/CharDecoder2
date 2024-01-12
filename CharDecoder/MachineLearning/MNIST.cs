@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Windows.Media;
-using NumSharp;
+﻿using NumSharp;
+using System.IO;
 
 namespace CharDecoder.MachineLearning
 {
@@ -15,8 +14,17 @@ namespace CharDecoder.MachineLearning
         {
             using (var reader = new StreamReader(@"./Resources/mnist_train.csv"))
             {
+                var counter = 0;
+
                 while (!reader.EndOfStream)
                 {
+                    counter++;
+
+                    if (counter % 10000 == 0)
+                    {
+                        Console.WriteLine($"Reading line: {counter} / 60000");
+                    }
+
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
@@ -33,6 +41,8 @@ namespace CharDecoder.MachineLearning
 
     public static class Trainer
     {
+        public static bool IsDataTrained = false;
+
         private static NDArray W_I_H { get; set; }
         private static NDArray W_H_O { get; set; }
         private static NDArray B_I_H { get; set; }
@@ -40,7 +50,7 @@ namespace CharDecoder.MachineLearning
 
         public static int Check(double[] pixels)
         {
-            var image2 = np.reshape(pixels, (28*28, 1));
+            var image2 = np.reshape(pixels, (28 * 28, 1));
 
             // Forward propagation input -> hidden
             var h_pre = B_I_H + np.matmul(W_I_H, image2);
@@ -64,7 +74,7 @@ namespace CharDecoder.MachineLearning
 
             double learnRate = 0.01;
             int epochs = 3;
-            
+
             for (int e = 0; e < epochs; e++)
             {
                 Console.WriteLine($"Epoc: {e + 1}");
@@ -116,6 +126,8 @@ namespace CharDecoder.MachineLearning
                 var acc = 1.0 * nrCorrect / MNIST.Pixels.Count;
                 Console.WriteLine($"Acc [{e}] = {(acc * 100)} %");
             }
+
+            IsDataTrained = true;
         }
     }
 }

@@ -46,13 +46,6 @@ namespace CharDecoder
             image.MouseRightButtonDown +=
                 new MouseButtonEventHandler(i_MouseRightButtonDown);
 
-            Console.WriteLine("Getting data");
-            MNIST.GetData();
-
-            Console.WriteLine("Data read");
-
-            Console.WriteLine("Training");
-            Trainer.Train();
         }
 
         void DrawPixel(MouseEventArgs e, byte[] colorData)
@@ -97,8 +90,15 @@ namespace CharDecoder
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonAsk_Click(object sender, RoutedEventArgs e)
         {
+            if (!Trainer.IsDataTrained)
+            {
+                MessageBox.Show("Machine is not trained yet. Do the training first.");
+
+                return;
+            }
+
             int stride = writeableBitmap.PixelWidth * writeableBitmap.Format.BitsPerPixel / 8;
             int size = stride * writeableBitmap.PixelHeight;
 
@@ -126,7 +126,7 @@ namespace CharDecoder
             MessageBox.Show($"Result: {result}");
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < rowCount; i++)
             {
@@ -136,6 +136,16 @@ namespace CharDecoder
                     writeableBitmap.WritePixels(rect, new byte[] { 0, 0, 0, 0 }, 4, 0);
                 }
             }
+        }
+
+        private void ButtonTrain_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Getting data");
+            MNIST.GetData();
+            Console.WriteLine("Data read");
+
+            Console.WriteLine("Training");
+            Trainer.Train();
         }
     }
 }
