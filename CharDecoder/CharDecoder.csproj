@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <None Remove="PixelBlack.bmp" />
-    <None Remove="Resources\mnist_test.csv" />
-    <None Remove="Resources\mnist_train.csv" />
   </ItemGroup>
 
   <ItemGroup>
